@@ -1,0 +1,35 @@
+version: '3.5'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+    image: passnod
+    container_name: passnod_php
+    restart: unless-stopped
+    volumes:
+    - ./:/var/www
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    image: nginx
+    container_name: passnod_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf/:/etc/nginx/conf.d/
+    depends_on:
+      - app
+#      - /data/app-data/nginx_webs:/home/webs:ro
+#      - /data/app-config/nginx/conf.d:/etc/nginx/conf.d:ro
+
+
+#  php8:
+#    image: php:8-fpm
+#    expose:
+#      - 9000
+#    volumes:
+#      - /data/app-data/nginx_webs:/home/webs:ro
