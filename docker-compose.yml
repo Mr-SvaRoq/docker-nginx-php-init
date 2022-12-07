@@ -1,6 +1,6 @@
 version: '3.5'
 services:
-  app:
+  php:
     build:
       context: .
       dockerfile: php/Dockerfile
@@ -22,7 +22,7 @@ services:
       - ./:/var/www
       - ./nginx/conf/:/etc/nginx/conf.d/
     depends_on:
-      - app
+      - php
 #      - /data/app-data/nginx_webs:/home/webs:ro
 #      - /data/app-config/nginx/conf.d:/etc/nginx/conf.d:ro
 
